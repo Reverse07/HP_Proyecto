@@ -1,0 +1,1 @@
+export function Feedback({error,loading}:{error?:string;loading?:boolean}) {return <div aria-live="polite">{error&&<p className="alert" role="alert">{error}</p>}{loading&&<p className="muted">Cargando…</p>}</div>;}

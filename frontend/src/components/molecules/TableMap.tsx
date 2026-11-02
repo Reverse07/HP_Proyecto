@@ -1,0 +1,4 @@
+export type Table={id:number;numero:number;capacidad:number;ubicacion:string;estado:string;apta:boolean};
+export function TableMap({tables,selected,onSelect}:{tables:Table[];selected:number;onSelect:(table:Table)=>void}) {
+  return <><div className="legend"><span>○ Libre</span><span>⊗ Ocupada</span><span>◉ Elegida</span></div>{['Salón','Terraza'].map(room=><section key={room} className="room"><h3>{room}</h3><div className="table-map">{tables.filter(t=>t.ubicacion===room).map(t=><button type="button" key={t.id} className={`table ${t.estado==='ocupada'?'occupied':''} ${selected===t.id?'selected':''}`} disabled={!t.apta} aria-disabled={!t.apta} aria-pressed={selected===t.id} onClick={()=>onSelect(t)}><strong>M{String(t.numero).padStart(2,'0')}</strong><span>{t.capacidad} personas</span><small>{t.estado==='ocupada'?'⊗ Ocupada':!t.apta?'Capacidad insuficiente':selected===t.id?'◉ Elegida':'○ Libre'}</small></button>)}</div></section>)}</>;
+}
