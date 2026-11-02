@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: terra-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-terra_brasa}
+      POSTGRES_USER: ${POSTGRES_USER:-terra}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-terra123}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-terra} -d ${POSTGRES_DB:-terra_brasa}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: terra-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  pgdata:

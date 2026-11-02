@@ -1,0 +1,1 @@
+Fase 1 en progreso: base del monorepo, database y backend inicial listos.

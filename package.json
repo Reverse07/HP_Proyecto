@@ -1,0 +1,24 @@
+{
+  "name": "terra-brasa",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "backend",
+    "frontend",
+    "db"
+  ],
+  "scripts": {
+    "db:up": "docker compose up -d postgres mailhog",
+    "db:reset": "npm --workspace db run reset",
+    "dev": "concurrently \"npm --workspace backend run dev\" \"npm --workspace frontend run dev\"",
+    "lint": "npm --workspace backend run lint && npm --workspace frontend run lint",
+    "build": "npm --workspace backend run build && npm --workspace frontend run build",
+    "test": "npm --workspace backend run test && npm --workspace frontend run test",
+    "test:report": "node ./scripts/test-report.js",
+    "prepare": "npm --workspace backend run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "vitest": "^5.1.0"
+  }
+}
